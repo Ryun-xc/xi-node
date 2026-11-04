@@ -313,7 +313,6 @@ Model:     deepseek-chat
 完整接口：
 
 ```text
-docs/WHITEPAPER.md
 docs/openapi.yaml
 ```
 
@@ -554,6 +553,6 @@ docs/PRODUCT-CONTRACT.md
 
 Apache-2.0
 
-Copyright 2026 Runcheng Zhou
+Copyright 2026 周润程 (Runcheng Zhou)
 
 See [LICENSE](LICENSE) and [NOTICE](NOTICE).
