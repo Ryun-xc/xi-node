@@ -313,6 +313,7 @@ Model:     deepseek-chat
 完整接口：
 
 ```text
+docs/WHITEPAPER.md
 docs/openapi.yaml
 ```
 
