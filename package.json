@@ -1,0 +1,23 @@
+{
+  "name": "xi-node",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first AI node: browser UI, memory review, goals, approvals, and evidence.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node core/test/run.mjs && node test/api.test.mjs && node test/model-client.test.mjs && node test/model-http.test.mjs && node test/approval-persistence.test.mjs && node test/approval-execution.test.mjs && node test/stream.test.mjs && node test/pwa.test.mjs && node test/chat-history.test.mjs && node test/memory-recall.test.mjs && node test/knowledge.test.mjs && node test/mcp.test.mjs && node test/proposal.test.mjs && node test/security.test.mjs && node test/backup-restore.test.mjs && node test/auth.test.mjs && node test/secret-store.test.mjs",
+    "test:ui": "node scripts/ui-smoke.mjs",
+    "test:core": "node core/test/run.mjs",
+    "restore": "node scripts/restore.mjs",
+    "start:multi": "node server/multiuser.mjs",
+    "user": "node scripts/user.mjs",
+    "mcp": "node server/mcp-server.mjs",
+    "soak": "node scripts/soak.mjs"
+  },
+  "author": "Runcheng Zhou"
+}

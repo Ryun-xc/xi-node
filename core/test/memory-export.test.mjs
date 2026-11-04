@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { createMemoryStore, createBeliefStore } from '../src/memory-api.mjs';
+
+const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'xi-memory-'));
+const memory = createMemoryStore({ file: path.join(dir, 'memory.json') });
+const beliefs = createBeliefStore({ file: path.join(dir, 'beliefs.json') });
+const observed = memory.write({ text: 'observed fact', source: 'user_message', epistemic: 'observed' });
+const inferred = memory.write({ text: 'inferred thing', source: 'model_inference', epistemic: 'inferred' });
+const belief = beliefs.upsert({ subject: 'x', predicate: 'is', object: 'y', evidence: [observed.id] });
+const all = memory.exportAll();
+assert.equal(all.length, 2);
+assert.equal(all[0].provenance.epistemic, 'observed');
+assert.equal(all[1].status, 'pending');
+assert.equal(beliefs.exportAll().length, 1);
+memory.retract(inferred.id, 'test');
+assert.equal(memory.exportAll({ includeRetracted: false }).length, 1);
+assert.equal(memory.exportAll().length, 2);
+assert.equal(belief.id, beliefs.list()[0].id);
+console.log(JSON.stringify({ ok: true, test: 'memory-export', records: all.length }));

@@ -1,0 +1,23 @@
+services:
+  xi-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8787:8787"
+    volumes:
+      - xi-node-data:/data
+    environment:
+      XI_NODE_PORT: "8787"
+      XI_NODE_DATA: /data
+      XI_NODE_HOST: 0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/api/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 10s
+
+volumes:
+  xi-node-data:

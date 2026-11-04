@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { createMemoryStore } from '../src/memory-records.mjs';
+import { createBeliefStore } from '../src/belief-store.mjs';
+import { createGoalStore } from '../src/goal-store.mjs';
+
+const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'xi-corrupt-'));
+const memoryFile = path.join(dir, 'memory.json');
+const beliefFile = path.join(dir, 'beliefs.json');
+const goalsFile = path.join(dir, 'goals.json');
+for (const file of [memoryFile, beliefFile, goalsFile]) fs.writeFileSync(file, '{ not json', 'utf8');
+const memory = createMemoryStore({ file: memoryFile });
+const beliefs = createBeliefStore({ file: beliefFile });
+const goals = createGoalStore({ file: goalsFile, tasksFile: path.join(dir, 'tasks.json') });
+assert.deepEqual(memory.list(), []);
+assert.deepEqual(beliefs.list(), []);
+assert.deepEqual(goals.listGoals(), []);
+console.log(JSON.stringify({ ok: true, test: 'corrupt-state' }));

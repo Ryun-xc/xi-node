@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: XI Node API
+  version: 0.1.0
+  description: Local-first AI host API. All routes except /api/health require the local access token.
+servers:
+  - url: http://127.0.0.1:8787
+security:
+  - bearerAuth: []
+paths:
+  /api/health:
+    get:
+      security: []
+      summary: Public health check
+  /api/status:
+    get:
+      summary: Runtime status and safe settings
+  /api/auth/status:
+    get:
+      security: []
+      summary: Authentication state
+  /api/auth/login:
+    post:
+      security: []
+      summary: Exchange access token for an HttpOnly cookie
+  /api/chat:
+    post:
+      summary: Send a chat message
+  /api/chat/stream:
+    post:
+      summary: Send a chat message and receive Server-Sent Events
+  /api/chat/propose:
+    post:
+      summary: Generate a goal proposal without creating anything
+  /api/knowledge:
+    get:
+      summary: List local knowledge snippets
+    post:
+      summary: Add a local knowledge snippet
+  /api/knowledge/{id}:
+    delete:
+      summary: Delete a local knowledge snippet
+  /api/chat/history:
+    get:
+      summary: Load persisted conversation history
+    delete:
+      summary: Clear conversation history
+  /api/goals:
+    get:
+      summary: List goals
+    post:
+      summary: Create a goal
+  /api/tasks:
+    get:
+      summary: List tasks
+    post:
+      summary: Create a read-only task
+  /api/goals/{id}/run:
+    post:
+      summary: Run read-only tasks for a goal
+  /api/memory:
+    get:
+      summary: List memory records
+    post:
+      summary: Write a memory record
+  /api/memory/{id}/{action}:
+    post:
+      summary: Approve, reject, or retract a memory
+  /api/approvals:
+    get:
+      summary: List approvals
+    post:
+      summary: Create an approval, optionally with skill and input
+  /api/approvals/{id}/{action}:
+    post:
+      summary: Approve or reject an approval; approved read-only/workspace skills execute
+  /api/timeline:
+    get:
+      summary: Read timeline events
+  /api/backup:
+    post:
+      summary: Create a local backup
+  /api/backups:
+    get:
+      summary: List backups
+  /api/restore:
+    post:
+      summary: Restore a backup (requires restart)
+  /api/settings:
+    get:
+      summary: Read safe settings
+    put:
+      summary: Update model and memory settings
+  /api/model/test:
+    post:
+      summary: Test the configured model provider
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: xi_node_token

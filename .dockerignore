@@ -1,0 +1,9 @@
+data/
+data-demo/
+screenshots/
+edge-profile*/
+dist/
+server.log
+server.err.log
+**/node_modules
+**/.git

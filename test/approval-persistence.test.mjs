@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { startServer } from '../server.mjs';
+
+const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'xi-approval-'));
+let app = await startServer({ port: 0, dataDir });
+let res = await fetch(app.url + '/api/approvals', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ title: 'persist me', risk: 'high' }) });
+let data = await res.json();
+assert.equal(data.ok, true);
+const id = data.item.id;
+await app.close();
+app = await startServer({ port: 0, dataDir });
+res = await fetch(app.url + '/api/approvals');
+data = await res.json();
+assert.equal(data.items.some((x) => x.id === id && x.status === 'pending'), true);
+res = await fetch(app.url + '/api/approvals/' + id + '/approve', { method: 'POST' });
+data = await res.json();
+assert.equal(data.item.status, 'approved');
+await app.close();
+fs.rmSync(dataDir, { recursive: true, force: true });
+console.log(JSON.stringify({ ok: true, test: 'approval-persistence' }));

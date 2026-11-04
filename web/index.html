@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>XI Node · 本地 AI 主机</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#050a0f">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span></span></div>
+        <div>
+          <strong>XI NODE</strong>
+          <small>LOCAL COGNITIVE HOST</small>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-item is-active" data-view="overview"><span class="nav-icon">◈</span><span>总览</span><kbd>1</kbd></button>
+        <button class="nav-item" data-view="chat"><span class="nav-icon">⌁</span><span>对话</span><kbd>2</kbd></button>
+        <button class="nav-item" data-view="goals"><span class="nav-icon">◎</span><span>目标与任务</span><kbd>3</kbd></button>
+        <button class="nav-item" data-view="memory"><span class="nav-icon">▤</span><span>记忆</span><kbd>4</kbd></button>
+        <button class="nav-item" data-view="approvals"><span class="nav-icon">◇</span><span>审批</span><kbd>5</kbd></button>
+        <button class="nav-item" data-view="timeline"><span class="nav-icon">≋</span><span>时间线</span><kbd>6</kbd></button>
+        <button class="nav-item" data-view="knowledge"><span class="nav-icon">▦</span><span>知识</span><kbd>8</kbd></button>
+        <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span><span>设置</span><kbd>7</kbd></button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="host-state"><span class="status-dot" id="hostDot"></span><span id="hostState">正在连接本地主机</span></div>
+        <div class="version">XI Node <span id="version">v0.1</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="title-block">
+          <div class="eyebrow" id="viewKicker">LOCAL COGNITIVE HOST</div>
+          <h1 id="viewTitle">总览</h1>
+        </div>
+        <div class="top-actions">
+          <select id="langSelect" class="lang-select" aria-label="Language" data-i18n-skip>
+            <option value="zh-CN">简体中文</option>
+            <option value="zh-TW">繁體中文</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+          <button class="icon-btn menu-btn" id="menuBtn" aria-label="打开导航">☰</button>
+          <button class="icon-btn" id="refreshBtn" title="刷新" aria-label="刷新">↻</button>
+          <button class="ghost-btn" id="quickGoalBtn">＋ 新目标</button>
+          <button class="ghost-btn" id="wizardBtn">启动向导</button>
+        </div>
+      </header>
+
+      <section class="view" id="viewRoot" tabindex="-1" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="wizard" hidden>
+    <section class="modal wizard" role="dialog" aria-modal="true" aria-labelledby="wizardTitle">
+      <div class="wizard-rail">
+        <div class="wizard-orb"></div>
+        <div class="eyebrow">FIRST LIGHT</div>
+        <h2 id="wizardTitle">把主机交给你</h2>
+        <p>三步完成初始化。数据留在本机，默认只监听 127.0.0.1。</p>
+        <div class="wizard-steps">
+          <div class="wizard-step is-active" data-step-dot="1"><b>01</b><span>欢迎</span></div>
+          <div class="wizard-step" data-step-dot="2"><b>02</b><span>记忆</span></div>
+          <div class="wizard-step" data-step-dot="3"><b>03</b><span>模型</span></div>
+        </div>
+      </div>
+      <div class="wizard-panel">
+        <div class="wizard-page" data-wizard-page="1">
+          <div class="eyebrow">STEP 01 / 03</div>
+          <h3>先让它认识你</h3>
+          <p class="muted">这不是一个聊天窗口。它会把目标、任务、记忆和证据留在同一个地方。</p>
+          <div class="feature-grid">
+            <div class="feature"><b>记忆可追溯</b><span>每条记忆都有来源和审核状态。</span></div>
+            <div class="feature"><b>动作有边界</b><span>高风险操作必须经过你确认。</span></div>
+            <div class="feature"><b>数据在本地</b><span>默认只监听本机，不上传状态。</span></div>
+          </div>
+        </div>
+        <div class="wizard-page" id="wizardPage2" data-wizard-page="2" hidden>
+          <div class="eyebrow">STEP 02 / 03</div>
+          <h3>记忆怎么工作</h3>
+          <p class="muted">观察到的事实可以直接记录；模型推断必须先进入审核。</p>
+          <label class="check-row"><input type="checkbox" id="wizardMemory" checked><span><b>启用记忆闭环</b><small>记录、审核、召回、备份</small></span></label>
+          <label class="check-row"><input type="checkbox" id="wizardReview" checked><span><b>推断需要审核</b><small>未经确认的推断不会注入上下文</small></span></label>
+        </div>
+        <div class="wizard-page" id="wizardPage3" data-wizard-page="3" hidden>
+          <div class="eyebrow">STEP 03 / 03</div>
+          <h3>连接模型</h3>
+          <p class="muted">v1 原型内置 Mock 模型。真实供应商接入后会复用同一个接口。</p>
+          <label class="field"><span>Provider</span><select id="wizardProvider"><option value="mock">Mock · 本地演示</option><option value="openai">OpenAI-compatible</option><option value="ollama">Ollama</option></select></label>
+          <label class="field"><span>模型名</span><input id="wizardModel" value="mock-architect" autocomplete="off"></label>
+          <label class="field"><span>服务地址（可选）</span><input id="wizardBaseUrl" placeholder="http://127.0.0.1:11434" autocomplete="off"></label>
+          <label class="field"><span>API Key（真实 Provider 需要）</span><input id="wizardApiKey" type="password" placeholder="不会回显；Mock 可留空" autocomplete="new-password"></label>
+          <div class="row" style="margin-top:8px"><button class="ghost-btn small-btn" id="wizardTest" type="button">测试连接</button><span class="tiny dim" id="wizardTestState"></span></div>
+          <div class="wizard-note"><span class="status-dot"></span>密钥只保存在本机数据目录，不会通过 API 回传。</div>
+        </div>
+        <div class="wizard-actions">
+          <button class="ghost-btn" id="wizardBack">返回</button>
+          <button class="primary-btn" id="wizardNext">下一步</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="login" hidden>
+    <section class="modal login-modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <div class="eyebrow">LOCAL ACCESS</div>
+      <h2 id="loginTitle">输入访问令牌</h2>
+      <p class="muted">令牌在本机数据目录的 <code>access-token</code> 文件里。只保存在这台机器上。</p>
+      <label class="field"><span>Access token</span><input id="loginToken" type="password" autocomplete="current-password" placeholder="粘贴 access-token"></label>
+      <p class="tiny dim" id="loginError"></p>
+      <div class="form-actions"><button class="primary-btn" id="loginBtn">进入 XI Node</button></div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="confirm" hidden>
+    <section class="modal confirm" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="eyebrow">NEEDS YOUR CALL</div>
+      <h2 id="confirmTitle">确认操作</h2>
+      <p id="confirmText" class="muted"></p>
+      <div class="confirm-actions">
+        <button class="ghost-btn" id="confirmCancel">取消</button>
+        <button class="danger-btn" id="confirmOk">确认</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast-stack" id="toasts" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

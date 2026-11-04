@@ -1,0 +1,36 @@
+# local runtime data
+data/
+data-*/
+backups/
+*.log
+server.log
+server.err.log
+docker-verify.log
+
+# secrets and tokens
+access-token
+model-secret.json
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# generated artifacts
+dist/
+release/
+screenshots/
+screenshot-*.png
+edge-profile*/
+node_modules/
+*.zip
+
+# editor/OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# multi-user registry and per-user data
+users.json
+users/
