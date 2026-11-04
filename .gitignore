@@ -34,3 +34,6 @@ Thumbs.db
 # multi-user registry and per-user data
 users.json
 users/
+
+# local-only white paper
+docs/WHITEPAPER.md
