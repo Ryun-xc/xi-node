@@ -19,5 +19,5 @@
     "mcp": "node server/mcp-server.mjs",
     "soak": "node scripts/soak.mjs"
   },
-  "author": "Runcheng Zhou"
+  "author": "周润程 (Runcheng Zhou)"
 }
