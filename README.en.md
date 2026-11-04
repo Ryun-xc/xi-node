@@ -221,12 +221,35 @@ no 24h soak
 
 ## Relationship to Xiaoxi and XI Core
 
+Xiaoxi is an earlier AI companion I built for QQ. It is not a previous repository of XI Node, and it is not a public cloud service.
+
+Its shape was:
+
+```text
+QQ private/group chat
+AI persona
+messages, images, voice
+long-term companionship
+```
+
+XI Node extracts the reusable parts of that experience:
+
 ```text
 XI Node = local AI host and product shell
 XI Core = cognitive runtime
 Xiaoxi = earlier QQ AI project, source of product/architecture experience
 QQ Bridge Plus = separate QQ bridge, not this project
 ```
+
+XI Node does not include:
+
+```text
+QQ transport
+Xiaoxi persona
+device control
+```
+
+You do not need to know Xiaoxi to use XI Node. It only explains where the product problem and architecture came from.
 
 ## License
 
