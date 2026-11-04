@@ -254,7 +254,6 @@ You do not need to know Xiaoxi to use XI Node. It only explains where the produc
 ## Documents
 
 ```text
-docs/WHITEPAPER.md
 docs/openapi.yaml
 ```
 
@@ -262,6 +261,6 @@ docs/openapi.yaml
 
 Apache-2.0
 
-Copyright 2026 Runcheng Zhou
+Copyright 2026 周润程 (Runcheng Zhou)
 
 See [LICENSE](LICENSE) and [NOTICE](NOTICE).
