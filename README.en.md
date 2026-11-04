@@ -251,6 +251,13 @@ device control
 
 You do not need to know Xiaoxi to use XI Node. It only explains where the product problem and architecture came from.
 
+## Documents
+
+```text
+docs/WHITEPAPER.md
+docs/openapi.yaml
+```
+
 ## License
 
 Apache-2.0
