@@ -221,7 +221,7 @@ no 24h soak
 
 ## Relationship to Xiaoxi and XI Core
 
-Xiaoxi is an earlier AI companion I built for QQ. It is not a previous repository of XI Node, and it is not a public cloud service.
+Xiaoxi is an earlier AI companion/friend project I built for QQ. It is not a previous repository of XI Node, and it is not a public cloud service.
 
 Its shape was:
 
@@ -229,7 +229,7 @@ Its shape was:
 QQ private/group chat
 AI persona
 messages, images, voice
-long-term companionship
+long-term friendship and continuity
 ```
 
 XI Node extracts the reusable parts of that experience:
